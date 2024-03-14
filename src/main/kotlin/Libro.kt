@@ -14,4 +14,8 @@ class Libro(
         require(titulo.isNotBlank()){ "El título no puede estar vacio"}
         require(autor.isNotBlank()){ "El autor no puede estar vacio"}
     }
+
+    override fun toString(): String {
+        return "Libro: $titulo, ID: $id, Estado: $estado Autor: $autor, Año de publicacion: $fechaDePublicacion, Tematica $tematica"
+    }
 }
