@@ -3,7 +3,7 @@ class DVD(
     val musical:Boolean,
     override var estado: Estado = Estado.DISPONIBLE,
     override val id:String = UtilidadesBiblioteca().generarIdentificadorUnico()
-):Prestable, ElementoBiblioteca(id, titulo, estado) {
+):Prestable, ElementoBiblioteca<Any?>(id, titulo, estado) {
     init {
         require(titulo.isNotBlank()){ "El título no puede estar vacio"}
     }

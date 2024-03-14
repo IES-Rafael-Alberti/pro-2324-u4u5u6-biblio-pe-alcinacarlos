@@ -1,5 +1,5 @@
 fun main() {
-    val catalogo = mutableListOf<ElementoBiblioteca>()
+    val catalogo = mutableListOf<ElementoBiblioteca<Any?>>()
     val gestorPrestamos = RegistroPrestamos()
     val gestorBiblioteca1 = GestorBiblioteca(catalogo, gestorPrestamos)
 

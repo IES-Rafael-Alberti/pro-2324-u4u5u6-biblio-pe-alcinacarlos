@@ -10,9 +10,9 @@ object Menu {
         println("8 -> Consultar Historial Prestamos de un Usuario")
         println("7 -> Salir")
     }
-    private fun buscarElementoPorId(catalogo: List<ElementoBiblioteca>): ElementoBiblioteca {
+    private fun buscarElementoPorId(catalogo: List<ElementoBiblioteca<Any?>>): ElementoBiblioteca<Any?> {
         var id: String
-        var elementoBiblioteca: ElementoBiblioteca? = null
+        var elementoBiblioteca: ElementoBiblioteca<Any?>? = null
         while (elementoBiblioteca == null){
             println("Dime una id de un elementoBiblioteca que se encuentre en el catalogo: ")
             try {
@@ -24,9 +24,9 @@ object Menu {
         }
         return elementoBiblioteca
     }
-    private fun buscarElementoPorTitulo(catalogo: List<ElementoBiblioteca>): ElementoBiblioteca {
+    private fun buscarElementoPorTitulo(catalogo: List<ElementoBiblioteca<Any?>>): ElementoBiblioteca<Any?> {
         var titulo: String?
-        var elementoBiblioteca: ElementoBiblioteca? = null
+        var elementoBiblioteca: ElementoBiblioteca<Any?>? = null
         while (elementoBiblioteca == null){
             println("Dime el nombre de un elementoBiblioteca que esté en el catalogo: ")
             titulo = readln()
@@ -34,8 +34,8 @@ object Menu {
         }
         return elementoBiblioteca
     }
-    fun preguntarBuscarElemento(catalogo: List<ElementoBiblioteca>): ElementoBiblioteca {
-        var elementoBiblioteca: ElementoBiblioteca? = null
+    fun preguntarBuscarElemento(catalogo: List<ElementoBiblioteca<Any?>>): ElementoBiblioteca<Any?> {
+        var elementoBiblioteca: ElementoBiblioteca<Any?>? = null
         while (elementoBiblioteca == null){
             println("Cómo quieres buscar el elementoBiblioteca?")
             println("1 -> Por ID")
