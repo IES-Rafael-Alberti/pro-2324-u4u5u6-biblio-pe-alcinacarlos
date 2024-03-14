@@ -1,21 +1,17 @@
 package org.pebiblioteca
 
+import UtilidadesBiblioteca
+
 class Libro(
-    val título:String,
+    val titulo:String,
     val autor:String,
-    val fecha_de_publicación:Int,
-    val temática:String,
+    val fechaDePublicacion:Int,
+    val tematica:String,
     var estado:Estado = Estado.DISPONIBLE,
-    val id:Int = generarId()
+    val id:String = UtilidadesBiblioteca().generarIdentificadorUnico()
 ) {
-    companion object{
-        var id_companio = 0
-        private fun generarId():Int{
-            return ++id_companio
-        }
-    }
     init {
-        require(título.isNotBlank()){ "El título no puede estar vacio"}
+        require(titulo.isNotBlank()){ "El título no puede estar vacio"}
         require(autor.isNotBlank()){ "El autor no puede estar vacio"}
     }
 }

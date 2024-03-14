@@ -1,7 +1,5 @@
 package org.pebiblioteca
 
-import kotlin.math.E
-
 class GestorBiblioteca(
     val catalogo: MutableList<Libro> = mutableListOf(),
     val registroPrestamos:MutableMap<Libro, Estado> = mutableMapOf()
@@ -23,7 +21,7 @@ class GestorBiblioteca(
         registroPrestamos[libro] = Estado.DISPONIBLE
     }
 
-    fun consultarDisponibilidad(libro: Libro):Boolean{
+    private fun consultarDisponibilidad(libro: Libro):Boolean{
         return libro.estado != Estado.PRESTADO
     }
 

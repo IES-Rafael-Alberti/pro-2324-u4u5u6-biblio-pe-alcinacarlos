@@ -10,13 +10,13 @@ object Menu {
         println("5 -> Retornar los libros según su estado (todo, disponibles, prestados)")
         println("6 -> Salir")
     }
-    fun buscarLibroPorId(catalogo: MutableList<Libro>):Libro{
-        var id: Int?
+    private fun buscarLibroPorId(catalogo: MutableList<Libro>):Libro{
+        var id: String
         var libro: Libro? = null
         while (libro == null){
             println("Dime una id de un libro que se encuentre en el catalogo: ")
             try {
-                id = readln().toInt()
+                id = readln()
                 libro = catalogo.find { it.id == id }
             }catch (e:NumberFormatException){
                 println("ID no válida")
@@ -24,13 +24,13 @@ object Menu {
         }
         return libro
     }
-    fun buscarLibroPorTitulo(catalogo: MutableList<Libro>):Libro{
+    private fun buscarLibroPorTitulo(catalogo: MutableList<Libro>):Libro{
         var titulo: String?
         var libro: Libro? = null
         while (libro == null){
             println("Dime el nombre de un libro que esté en el catalogo: ")
             titulo = readln()
-            libro = catalogo.find { it.título == titulo }
+            libro = catalogo.find { it.titulo == titulo }
         }
         return libro
     }
@@ -52,7 +52,7 @@ object Menu {
         return libro
     }
     fun preguntarEstado():String{
-        var estado = arrayOf("disponibles", "todos", "prestados")
+        val estado = arrayOf("disponibles", "todos", "prestados")
         var respuesta = ""
         while (respuesta !in estado){
             println("Introduce un estado (disponibles, todos, prestados): ")
@@ -67,16 +67,16 @@ object Menu {
         println("Quién es el autor?")
         val autor = readln()
 
-        var fecha_de_publicacion:Int? = null
-        while (fecha_de_publicacion == null || fecha_de_publicacion !in 1900..2024){
+        var fechaDePublicacion:Int? = null
+        while (fechaDePublicacion == null || fechaDePublicacion !in 1900..2024){
             println("Fecha de publicacion (entre 1900 y 2024): ")
-            fecha_de_publicacion = readln().toIntOrNull()
+            fechaDePublicacion = readln().toIntOrNull()
         }
 
         println("Tematica del libro:")
         val tematica = readln()
 
 
-        return Libro(titulo, autor, fecha_de_publicacion, tematica)
+        return Libro(titulo, autor, fechaDePublicacion, tematica)
     }
 }
