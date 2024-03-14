@@ -1,8 +1,11 @@
 package org.pebiblioteca
 
+import RegistroPrestamos
+import Usuario
+
 class GestorBiblioteca(
-    val catalogo: MutableList<Libro> = mutableListOf(),
-    val registroPrestamos:MutableMap<Libro, Estado> = mutableMapOf()
+    private val catalogo: MutableList<Libro> = mutableListOf(),
+    private val registroPrestamos:RegistroPrestamos = RegistroPrestamos()
 ) {
     fun agregarLibro(libro: Libro){
         catalogo.add(libro)
@@ -10,15 +13,21 @@ class GestorBiblioteca(
     fun eliminarLibro(libro: Libro){
         catalogo.remove(libro)
     }
-    fun registrarPrestamo(libro: Libro){
+    fun registrarPrestamo(libro: Libro, usuario: Usuario){
         if (consultarDisponibilidad(libro)) libro.estado = Estado.PRESTADO
         else println("Libro ya prestado")
-        registroPrestamos[libro] = Estado.PRESTADO
+        registroPrestamos.registrarPrestamo(usuario, libro)
     }
-    fun devolverLibro(libro: Libro){
+    fun devolverLibro(libro: Libro, usuario: Usuario){
         if (!consultarDisponibilidad(libro)) libro.estado = Estado.DISPONIBLE
         else println("Libro ya diponible")
-        registroPrestamos[libro] = Estado.DISPONIBLE
+        registroPrestamos.devolverPrestamo(usuario,libro)
+    }
+    fun consultarHistorialLibro(libro: Libro): MutableList<Usuario> {
+        return registroPrestamos.consultarHistorialLibro(libro)
+    }
+    fun consultarHistorialUsuario(usuario: Usuario):List<MutableList<Libro>>{
+        return registroPrestamos.consultarHistorialUsuario(usuario)
     }
 
     private fun consultarDisponibilidad(libro: Libro):Boolean{

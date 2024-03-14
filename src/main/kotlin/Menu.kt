@@ -8,9 +8,11 @@ object Menu {
         println("3 -> Registrar un préstamo")
         println("4 -> Devolver un libro")
         println("5 -> Retornar los libros según su estado (todo, disponibles, prestados)")
-        println("6 -> Salir")
+        println("6 -> Consultar Historial Prestamos de un Libro")
+        println("8 -> Consultar Historial Prestamos de un Usuario")
+        println("7 -> Salir")
     }
-    private fun buscarLibroPorId(catalogo: MutableList<Libro>):Libro{
+    private fun buscarLibroPorId(catalogo: List<Libro>):Libro{
         var id: String
         var libro: Libro? = null
         while (libro == null){
@@ -24,7 +26,7 @@ object Menu {
         }
         return libro
     }
-    private fun buscarLibroPorTitulo(catalogo: MutableList<Libro>):Libro{
+    private fun buscarLibroPorTitulo(catalogo: List<Libro>):Libro{
         var titulo: String?
         var libro: Libro? = null
         while (libro == null){
@@ -34,7 +36,7 @@ object Menu {
         }
         return libro
     }
-    fun preguntarBuscarLibro(catalogo: MutableList<Libro>):Libro{
+    fun preguntarBuscarLibro(catalogo: List<Libro>):Libro{
         var libro:Libro? = null
         while (libro == null){
             println("Cómo quieres buscar el libro?")
