@@ -10,12 +10,10 @@ class GestorBiblioteca(
     }
     fun registrarPrestamo(elementoBiblioteca: ElementoBiblioteca, usuario: Usuario){
         if (consultarDisponibilidad(elementoBiblioteca)) elementoBiblioteca.estado = Estado.PRESTADO
-        else println("ElementoBiblioteca ya prestado")
         registroPrestamos.registrarPrestamo(usuario, elementoBiblioteca)
     }
-    fun devolverLibro(elementoBiblioteca: ElementoBiblioteca, usuario: Usuario){
+    fun devolverElementoBiblioteca(elementoBiblioteca: ElementoBiblioteca, usuario: Usuario){
         if (!consultarDisponibilidad(elementoBiblioteca)) elementoBiblioteca.estado = Estado.DISPONIBLE
-        else println("ElementoBiblioteca ya diponible")
         registroPrestamos.devolverPrestamo(usuario,elementoBiblioteca)
     }
     fun consultarHistorialElementoBiblioteca(elementoBiblioteca: ElementoBiblioteca): MutableList<Usuario> {

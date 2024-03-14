@@ -3,30 +3,34 @@ fun main() {
     val gestorPrestamos = RegistroPrestamos()
     val gestorBiblioteca1 = GestorBiblioteca(catalogo, gestorPrestamos)
 
-    val elementosBiblioteca = mutableListOf(
+    val elementosBiblioteca = listOf(
         Libro("Lucas va por el mundo", "Carlos Alcina", 2024, "Algo"),
         Revista("Ayuda", "Carlos Alcina2", 2020, "Algo2"),
         Libro("Muy largo el examen", "Carlos Alcina3", 2021, "Algo3"),
-        Revista("Salvame", "Carlitos", 2020, "hola diego")
+        Revista("Salvame", "Carlitos", 2020, "hola diego"),
+        DVD("HITS DAVID BISBAL", true),
+        DVD("Peppa Pig y sus amiguitos (ayuda por favor)", false)
+        )
+
+    val usuarios = listOf(
+        Usuario("Lucas"),
+        Usuario("Carlos"),
+        Usuario("Pepe")
     )
-    val usuario1 = Usuario("Lucas")
-    for (elementoBiblioteca in elementosBiblioteca){
-        gestorBiblioteca1.agregarElementoBiblioteca(elementoBiblioteca)
+    elementosBiblioteca.forEach { gestorBiblioteca1.agregarElementoBiblioteca(it) }
+
+    //NUMERO RANDOM PARA TESTESTEAR LO QUE DICE EL ENUNCIADO
+    repeat(10){
+        gestorBiblioteca1.registrarPrestamo(elementosBiblioteca.random(), usuarios.random())
     }
-
-    gestorBiblioteca1.registrarPrestamo(elementosBiblioteca[0], usuario1)
-    gestorBiblioteca1.registrarPrestamo(elementosBiblioteca[1], usuario1)
-    gestorBiblioteca1.registrarPrestamo(elementosBiblioteca[1], usuario1)
-
-    gestorBiblioteca1.devolverLibro(elementosBiblioteca[0], usuario1)
-    gestorBiblioteca1.devolverLibro(elementosBiblioteca[1], usuario1)
-    gestorBiblioteca1.registrarPrestamo(elementosBiblioteca[1], usuario1)
-
-    gestorBiblioteca1.devolverLibro(elementosBiblioteca[1], usuario1)
+    repeat(5){
+        gestorBiblioteca1.devolverElementoBiblioteca(elementosBiblioteca.random(), usuarios.random())
+    }
 
     for (elementoBiblioteca in gestorBiblioteca1.retornarEnFuncionEstado("todo")){
         println(elementoBiblioteca)
     }
+
     var salir = false
     while (!salir){
         Menu.mostrar()
@@ -48,12 +52,12 @@ fun main() {
                         gestorBiblioteca1.retornarEnFuncionEstado(
                             "todos"
                         )
-                    ), usuario1)
+                    ), usuarios[0])
                 println("Prestamo realiza con exito")
                 Menu.mostrar()
             }
             "4" -> {
-                gestorBiblioteca1.devolverLibro(Menu.preguntarBuscarElemento(gestorBiblioteca1.retornarEnFuncionEstado("todos")), usuario1)
+                gestorBiblioteca1.devolverElementoBiblioteca(Menu.preguntarBuscarElemento(gestorBiblioteca1.retornarEnFuncionEstado("todos")), usuarios[0])
                 println("Libro devuelto con exito")
                 Menu.mostrar()
             }
@@ -72,7 +76,7 @@ fun main() {
                 ))
             }
             "7" -> {
-                println(gestorBiblioteca1.consultarHistorialUsuario(usuario1))
+                println(gestorBiblioteca1.consultarHistorialUsuario(usuarios[0]))
             }
             "8" -> {
                 println("Hasta luego!!!")
