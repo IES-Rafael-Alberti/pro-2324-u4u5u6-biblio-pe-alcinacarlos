@@ -1,4 +1,4 @@
-class Libro(
+class Revista(
     override val titulo:String,
     val autor:String,
     val fechaDePublicacion:Int,
@@ -20,6 +20,6 @@ class Libro(
     }
 
     override fun toString(): String {
-        return "Libro: $titulo, ID: $id, Estado: $estado Autor: $autor, Año de publicacion: $fechaDePublicacion, Tematica $tematica"
+        return "Revista: $titulo, ID: $id, Estado: $estado Autor: $autor, Año de publicacion: $fechaDePublicacion, Tematica $tematica"
     }
 }

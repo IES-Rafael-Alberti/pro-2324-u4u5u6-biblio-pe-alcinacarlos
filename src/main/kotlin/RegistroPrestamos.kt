@@ -1,33 +1,31 @@
-import org.pebiblioteca.Libro
-
 class RegistroPrestamos(
-    private val prestamosActuales:MutableMap<Libro, Usuario?> = mutableMapOf(),
-    private val historialPrestamos:MutableMap<Libro, MutableList<Usuario>> = mutableMapOf()
-) {
-    private fun inicializarUsuarioEnSistema(libro: Libro){
-        historialPrestamos[libro] = mutableListOf()
+    private val prestamosActuales:MutableMap<ElementoBiblioteca, Usuario?> = mutableMapOf(),
+    private val historialPrestamos:MutableMap<ElementoBiblioteca, MutableList<Usuario>> = mutableMapOf()
+):IGestorPrestamos {
+    private fun inicializarUsuarioEnSistema(elementoBiblioteca: ElementoBiblioteca){
+        historialPrestamos[elementoBiblioteca] = mutableListOf()
 
     }
-    fun registrarPrestamo(usuario: Usuario, libro: Libro){
-        if (historialPrestamos[libro] == null) inicializarUsuarioEnSistema(libro)
-        usuario.agregarLibroPrestado(libro)
-        prestamosActuales[libro] = usuario
-        historialPrestamos[libro]!!.add(usuario)
+    override fun registrarPrestamo(usuario: Usuario, elementoBiblioteca: ElementoBiblioteca){
+        if (historialPrestamos[elementoBiblioteca] == null) inicializarUsuarioEnSistema(elementoBiblioteca)
+        usuario.agregarElementoBiblotecaPrestado(elementoBiblioteca)
+        prestamosActuales[elementoBiblioteca] = usuario
+        historialPrestamos[elementoBiblioteca]!!.add(usuario)
     }
-    fun devolverPrestamo(usuario:Usuario, libro: Libro){
-        if (historialPrestamos[libro] == null) inicializarUsuarioEnSistema(libro)
-        usuario.quitarLibroPrestado(libro)
-        prestamosActuales[libro] = null
-    }
-
-    fun consultarHistorialLibro(libro: Libro): MutableList<Usuario> {
-        return historialPrestamos[libro]!!
+    override fun devolverPrestamo(usuario:Usuario, elementoBiblioteca: ElementoBiblioteca){
+        if (historialPrestamos[elementoBiblioteca] == null) inicializarUsuarioEnSistema(elementoBiblioteca)
+        usuario.quitarElementoBiblotecaPrestado(elementoBiblioteca)
+        prestamosActuales[elementoBiblioteca] = null
     }
 
-    fun consultarHistorialUsuario(usuario: Usuario): List<MutableList<Libro>> {
+    override fun consultarHistorialElementoBiblioteca(elementoBiblioteca: ElementoBiblioteca): MutableList<Usuario> {
+        return historialPrestamos[elementoBiblioteca]!!
+    }
+
+    override fun consultarHistorialUsuario(usuario: Usuario): List<MutableList<ElementoBiblioteca>> {
         val usuarios = mutableSetOf<Usuario>()
         historialPrestamos.values.forEach{ it.forEach { usuarios.add(it) }}
-        val resultado:MutableMap<Usuario, MutableList<Libro>> = mutableMapOf()
+        val resultado:MutableMap<Usuario, MutableList<ElementoBiblioteca>> = mutableMapOf()
         for (nombreUsuario in usuarios){
             val usuarios = historialPrestamos.filter { (usuario, listalibros) -> listalibros.any{it == nombreUsuario} }.keys
             resultado[nombreUsuario] = usuarios.toMutableList()

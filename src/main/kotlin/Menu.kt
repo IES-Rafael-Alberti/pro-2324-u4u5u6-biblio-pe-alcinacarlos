@@ -1,57 +1,55 @@
-package org.pebiblioteca
-
 object Menu {
     fun mostrar(){
         println("Bienvenido a la Bibloteca, qué desea hacer?")
-        println("1 -> Añadir un libro")
-        println("2 -> Eliminar un libro")
+        println("1 -> Añadir un elementoBiblioteca")
+        println("2 -> Eliminar un elementoBiblioteca")
         println("3 -> Registrar un préstamo")
-        println("4 -> Devolver un libro")
+        println("4 -> Devolver un elementoBiblioteca")
         println("5 -> Retornar los libros según su estado (todo, disponibles, prestados)")
-        println("6 -> Consultar Historial Prestamos de un Libro")
+        println("6 -> Consultar Historial Prestamos de un ElementoBiblioteca")
         println("8 -> Consultar Historial Prestamos de un Usuario")
         println("7 -> Salir")
     }
-    private fun buscarLibroPorId(catalogo: List<Libro>):Libro{
+    private fun buscarElementoPorId(catalogo: List<ElementoBiblioteca>): ElementoBiblioteca {
         var id: String
-        var libro: Libro? = null
-        while (libro == null){
-            println("Dime una id de un libro que se encuentre en el catalogo: ")
+        var elementoBiblioteca: ElementoBiblioteca? = null
+        while (elementoBiblioteca == null){
+            println("Dime una id de un elementoBiblioteca que se encuentre en el catalogo: ")
             try {
                 id = readln()
-                libro = catalogo.find { it.id == id }
+                elementoBiblioteca = catalogo.find { it.id == id }
             }catch (e:NumberFormatException){
                 println("ID no válida")
             }
         }
-        return libro
+        return elementoBiblioteca
     }
-    private fun buscarLibroPorTitulo(catalogo: List<Libro>):Libro{
+    private fun buscarElementoPorTitulo(catalogo: List<ElementoBiblioteca>): ElementoBiblioteca {
         var titulo: String?
-        var libro: Libro? = null
-        while (libro == null){
-            println("Dime el nombre de un libro que esté en el catalogo: ")
+        var elementoBiblioteca: ElementoBiblioteca? = null
+        while (elementoBiblioteca == null){
+            println("Dime el nombre de un elementoBiblioteca que esté en el catalogo: ")
             titulo = readln()
-            libro = catalogo.find { it.titulo == titulo }
+            elementoBiblioteca = catalogo.find { it.titulo == titulo }
         }
-        return libro
+        return elementoBiblioteca
     }
-    fun preguntarBuscarLibro(catalogo: List<Libro>):Libro{
-        var libro:Libro? = null
-        while (libro == null){
-            println("Cómo quieres buscar el libro?")
+    fun preguntarBuscarElemento(catalogo: List<ElementoBiblioteca>): ElementoBiblioteca {
+        var elementoBiblioteca: ElementoBiblioteca? = null
+        while (elementoBiblioteca == null){
+            println("Cómo quieres buscar el elementoBiblioteca?")
             println("1 -> Por ID")
             println("2 -> Por titulo")
-            libro = when(readln().trim()){
-                "1" -> buscarLibroPorId(catalogo)
-                "2" -> buscarLibroPorTitulo(catalogo)
+            elementoBiblioteca = when(readln().trim()){
+                "1" -> buscarElementoPorId(catalogo)
+                "2" -> buscarElementoPorTitulo(catalogo)
                 else -> {
                     println("Opción no válida")
                     null
                 }
             }
         }
-        return libro
+        return elementoBiblioteca
     }
     fun preguntarEstado():String{
         val estado = arrayOf("disponibles", "todos", "prestados")
@@ -62,8 +60,8 @@ object Menu {
         }
         return respuesta
     }
-    fun crearNuevoLibro():Libro{
-        println("Qué título quieres que tenga el libro?")
+    fun crearNuevoLibro(): Libro {
+        println("Qué título quieres que tenga el elementoBiblioteca?")
         val titulo = readln().trim()
 
         println("Quién es el autor?")
@@ -75,7 +73,7 @@ object Menu {
             fechaDePublicacion = readln().toIntOrNull()
         }
 
-        println("Tematica del libro:")
+        println("Tematica del elementoBiblioteca:")
         val tematica = readln()
 
 

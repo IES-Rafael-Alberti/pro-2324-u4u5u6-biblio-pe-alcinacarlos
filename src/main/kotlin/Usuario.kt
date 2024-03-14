@@ -1,18 +1,16 @@
-import org.pebiblioteca.Libro
-
 class Usuario(
     val nombre:String,
-    private val librosPrestados:MutableList<Libro> = mutableListOf(),
+    private val librosPrestados:MutableList<ElementoBiblioteca> = mutableListOf(),
     val id: String = UtilidadesBiblioteca().generarIdentificadorUnico()
 ) {
-    fun agregarLibroPrestado(libro: Libro){
-        librosPrestados.add(libro)
+    fun agregarElementoBiblotecaPrestado(elementoBiblioteca: ElementoBiblioteca){
+        librosPrestados.add(elementoBiblioteca)
     }
-    fun quitarLibroPrestado(libro: Libro){
-        librosPrestados.remove(libro)
+    fun quitarElementoBiblotecaPrestado(elementoBiblioteca: ElementoBiblioteca){
+        librosPrestados.remove(elementoBiblioteca)
     }
 
-    fun mostrarLibrosPrestados():List<Libro>{
+    fun mostrarElementoBiblotecaPrestados():List<ElementoBiblioteca>{
         return librosPrestados
     }
     init {

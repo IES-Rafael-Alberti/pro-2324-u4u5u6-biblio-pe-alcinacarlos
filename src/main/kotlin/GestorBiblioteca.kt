@@ -1,40 +1,35 @@
-package org.pebiblioteca
-
-import RegistroPrestamos
-import Usuario
-
 class GestorBiblioteca(
-    private val catalogo: MutableList<Libro> = mutableListOf(),
-    private val registroPrestamos:RegistroPrestamos = RegistroPrestamos()
+    private val catalogo: MutableList<ElementoBiblioteca>,
+    private val registroPrestamos:IGestorPrestamos
 ) {
-    fun agregarLibro(libro: Libro){
-        catalogo.add(libro)
+    fun agregarElementoBiblioteca(elementoBiblioteca: ElementoBiblioteca){
+        catalogo.add(elementoBiblioteca)
     }
-    fun eliminarLibro(libro: Libro){
-        catalogo.remove(libro)
+    fun eliminarElementoBiblioteca(elementoBiblioteca: ElementoBiblioteca){
+        catalogo.remove(elementoBiblioteca)
     }
-    fun registrarPrestamo(libro: Libro, usuario: Usuario){
-        if (consultarDisponibilidad(libro)) libro.estado = Estado.PRESTADO
-        else println("Libro ya prestado")
-        registroPrestamos.registrarPrestamo(usuario, libro)
+    fun registrarPrestamo(elementoBiblioteca: ElementoBiblioteca, usuario: Usuario){
+        if (consultarDisponibilidad(elementoBiblioteca)) elementoBiblioteca.estado = Estado.PRESTADO
+        else println("ElementoBiblioteca ya prestado")
+        registroPrestamos.registrarPrestamo(usuario, elementoBiblioteca)
     }
-    fun devolverLibro(libro: Libro, usuario: Usuario){
-        if (!consultarDisponibilidad(libro)) libro.estado = Estado.DISPONIBLE
-        else println("Libro ya diponible")
-        registroPrestamos.devolverPrestamo(usuario,libro)
+    fun devolverLibro(elementoBiblioteca: ElementoBiblioteca, usuario: Usuario){
+        if (!consultarDisponibilidad(elementoBiblioteca)) elementoBiblioteca.estado = Estado.DISPONIBLE
+        else println("ElementoBiblioteca ya diponible")
+        registroPrestamos.devolverPrestamo(usuario,elementoBiblioteca)
     }
-    fun consultarHistorialLibro(libro: Libro): MutableList<Usuario> {
-        return registroPrestamos.consultarHistorialLibro(libro)
+    fun consultarHistorialElementoBiblioteca(elementoBiblioteca: ElementoBiblioteca): MutableList<Usuario> {
+        return registroPrestamos.consultarHistorialElementoBiblioteca(elementoBiblioteca)
     }
-    fun consultarHistorialUsuario(usuario: Usuario):List<MutableList<Libro>>{
+    fun consultarHistorialUsuario(usuario: Usuario):List<MutableList<ElementoBiblioteca>>{
         return registroPrestamos.consultarHistorialUsuario(usuario)
     }
 
-    private fun consultarDisponibilidad(libro: Libro):Boolean{
-        return libro.estado != Estado.PRESTADO
+    private fun consultarDisponibilidad(elementoBiblioteca: ElementoBiblioteca):Boolean{
+        return elementoBiblioteca.estado != Estado.PRESTADO
     }
 
-    fun retornarEnFuncionEstado(estado: String): List<Libro> {
+    fun retornarEnFuncionEstado(estado: String): List<ElementoBiblioteca> {
         return when(estado.lowercase()){
             "disponibles" -> {
                 catalogo.filter { it.estado == Estado.DISPONIBLE }
